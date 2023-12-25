@@ -13,8 +13,10 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>mongodb</name>
 	<description>first mongo db project </description>
+	<packaging>war</packaging>
 	<properties>
 		<java.version>17</java.version>
+		<start-class>com.mongodb.MongodbApplication</start-class>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -29,6 +31,23 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-mail</artifactId>
     </dependency>
+     <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-thymeleaf</artifactId>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-ses -->
+	<dependency>
+	    <groupId>com.amazonaws</groupId>
+	    <artifactId>aws-java-sdk-ses</artifactId>
+	    <version>1.12.623</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/io.awspring.cloud/spring-cloud-aws-ses -->
+	<dependency>
+	    <groupId>io.awspring.cloud</groupId>
+	    <artifactId>spring-cloud-aws-ses</artifactId>
+	    <version>3.1.0</version>
+	</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -42,6 +61,12 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-war-plugin -->
+			<plugin>
+			    <groupId>org.apache.maven.plugins</groupId>
+			    <artifactId>maven-war-plugin</artifactId>
+			    </plugin>
+
 		</plugins>
 	</build>
 

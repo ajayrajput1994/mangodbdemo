@@ -2,6 +2,7 @@ package com.mongodb.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,6 +34,18 @@ public class Controller {
 		
 		return ResponseEntity.ok(this.studrepo.findAll());
 	}
+	
+	@GetMapping("/sendawsmail")
+	public ResponseEntity<?> sendAWSmail(){
+		SimpleMailMessage message=new SimpleMailMessage();
+		message.setFrom("crickonfire@gmail.com");
+		message.setTo("ajaysinghrajput352@gmail.com");
+		message.setSubject("aws mail message");
+		message.setText("welcome aws mail message");
+		senderMail.sendAWSMail(message);
+		return ResponseEntity.ok("send mail successfuly");
+	}
+	
 	@GetMapping("/send")
 	public ResponseEntity<?> sendMail(){
 		String tomail="crickonfire@gmail.com";
