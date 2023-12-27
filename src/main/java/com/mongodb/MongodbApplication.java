@@ -6,13 +6,12 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-public class MongodbApplication extends SpringBootServletInitializer {
+public class MongodbApplication extends SpringBootServletInitializer  {
 
+	
 	@Override
-	protected  SpringApplicationBuilder configure(SpringApplicationBuilder app) {
-		return app.sources(MongodbApplication.class);
-		
-	}
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application){ 
+		return  application.sources(MongodbApplication.class); }
 	
 	public static void main(String[] args) {
 		SpringApplication.run(MongodbApplication.class, args);
