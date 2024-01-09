@@ -1,9 +1,13 @@
 package com.mongodb.controller;
 
+import java.util.Map;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mongodb.model.Student;
 import com.mongodb.repo.StudentRepository;
+import com.mongodb.service.KafakService;
 import com.mongodb.service.SendingMail;
 
 import jakarta.mail.MessagingException;
@@ -22,6 +27,8 @@ public class Controller {
 	private StudentRepository studrepo;
 	@Autowired
 	private SendingMail senderMail;
+	@Autowired
+	private KafakService kafakService;
 
 	@PostMapping("/")
 	public ResponseEntity<?> addStudent(@RequestBody Student student){
@@ -33,6 +40,14 @@ public class Controller {
 	public ResponseEntity<?> getStudents(){
 		
 		return ResponseEntity.ok(this.studrepo.findAll());
+	}
+	/* start zookeeper of kafka by cmd command ::> bin\windows\zookeeper-server-start.bat config\zookeeper.properties
+	 * start kafka server by cmd command::> bin\windows\kafka-server-start.bat config\server.properties
+	 */
+	@PostMapping("/kafka/{msg}")
+	public ResponseEntity<?> createkafkatopic(@PathVariable("msg") String msg){
+		this.kafakService.updateNewTopic("("+msg+"::"+Math.round(Math.random() * 100)+")");
+		return new ResponseEntity<>(Map.of("message","message updated !"),HttpStatus.OK);
 	}
 	
 	@GetMapping("/sendawsmail")
